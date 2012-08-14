@@ -6,7 +6,6 @@ package org.nypl.mss.tika;
 
 import java.io.*;
 import org.apache.tika.Tika;
-import org.apache.tika.language.LanguageProfile;
 import org.apache.tika.language.ProfilingWriter;
 
 public class TikaLanguage {
