@@ -11,18 +11,15 @@ public class TikaInterface {
     private static ArrayList<File> files;
     private File currentFile;
     private static final Tika tika = new Tika();
-    
-    TikaInterface(String fileIn) throws IOException{
-        files = new ArrayList<File>(Arrays.asList(new File(fileIn).listFiles()));
-        
-        for(File file: files){
-            System.out.println(file.getName());
-            getType(file);
-            getLanguage(file);
-            //getMetadata();
-            //getText()
-            System.out.println();
-        }
+
+
+    TikaInterface(File file) throws IOException {
+        //System.out.println(file.getName());
+        getType(file);
+        getLanguage(file);
+        //getMetadata();
+        //getText()
+        System.out.println();
     }
 
 
@@ -36,8 +33,8 @@ public class TikaInterface {
         System.out.println("tikaLanguage: " + tl.getLanguage());
     }
     
-        
     public static void main(String[] args) throws IOException{
-        TikaInterface ti = new TikaInterface("files");
+        File file = new File(args[0]);
+        TikaInterface ti = new TikaInterface(file);
     }
 }

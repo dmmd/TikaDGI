@@ -17,26 +17,26 @@ public class TikaLanguage {
     TikaLanguage(File f, Tika tika) throws FileNotFoundException, IOException{
         file = f;
         this.tika = tika;
-        getText();
+        parse(file);
     }
     
-    private void parse(Reader reader) throws FileNotFoundException, IOException{
+    private void parse(File file) throws FileNotFoundException, IOException{
+       Reader reader = tika.parse(new FileInputStream(file));
        ProfilingWriter pw = new ProfilingWriter();
        String line;
        BufferedReader br = new BufferedReader(reader);
        while((line = br.readLine()) != null){
            pw.append(line);
        }
-       language = pw.getLanguage().getLanguage(); 
+
+       if(pw.getProfile().getCount() > 0)
+           language = pw.getLanguage().getLanguage();
+       else
+           language = null;
     }
     
     public String getLanguage(){
         return language;
     }
-
-    private void getText() throws IOException {
-        Reader reader = tika.parse(new FileInputStream(file));
-        parse(reader);
-        
-    }
+    
 }
