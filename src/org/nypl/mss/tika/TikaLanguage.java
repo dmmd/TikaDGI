@@ -14,23 +14,24 @@ public class TikaLanguage {
     private String language;
     private Tika tika;
     
-    TikaLanguage(File f, Tika tika) throws FileNotFoundException, IOException{
-        file = f;
+    TikaLanguage(File file, Tika tika) throws FileNotFoundException, IOException{
+        this.file = file;
         this.tika = tika;
         parse(file);
     }
     
     private void parse(File file) throws FileNotFoundException, IOException{
-       Reader reader = tika.parse(new FileInputStream(file));
+       BufferedReader reader = new BufferedReader(tika.parse(new FileInputStream(file)));
        ProfilingWriter pw = new ProfilingWriter();
+       
        String line;
-       BufferedReader br = new BufferedReader(reader);
-       while((line = br.readLine()) != null){
+       while((line = reader.readLine()) != null){
            pw.append(line);
        }
 
-       if(pw.getProfile().getCount() > 0)
+       if(pw.getProfile().getCount() > 0){
            language = pw.getLanguage().getLanguage();
+       }
        else
            language = null;
     }

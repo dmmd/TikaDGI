@@ -1,1 +1,1 @@
-*	dgi java -jar /Users/dm/Projects/TikaDGI/dist/TikaDGI.jar
+*	dgi java -jar ./dist/TikaDGI.jar
