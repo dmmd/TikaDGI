@@ -19,7 +19,6 @@ public class TikaInterface {
         getLanguage(file);
         //getMetadata();
         //getText()
-        System.out.println();
     }
 
 
@@ -30,7 +29,8 @@ public class TikaInterface {
     
     private void getLanguage(File file) throws IOException {
         TikaLanguage tl = new TikaLanguage(file, tika);
-        System.out.println("tikaLanguage: " + tl.getLanguage());
+        if(tl.getLanguage() != null)
+            System.out.println("tikaLanguage: " + tl.getLanguage());
     }
     
     public static void main(String[] args) throws IOException{
