@@ -5,24 +5,26 @@
 package org.nypl.mss.tika;
 
 import java.io.*;
+import org.apache.tika.Tika;
 import org.apache.tika.language.LanguageProfile;
 import org.apache.tika.language.ProfilingWriter;
 
 public class TikaLanguage {
     private final File file;
     private String language;
+    private Tika tika;
     
-    TikaLanguage(File f) throws FileNotFoundException, IOException{
+    TikaLanguage(File f, Tika tika) throws FileNotFoundException, IOException{
         file = f;
-        parse();
+        this.tika = tika;
+        getText();
     }
     
-    private void parse() throws FileNotFoundException, IOException{
+    private void parse(Reader reader) throws FileNotFoundException, IOException{
        ProfilingWriter pw = new ProfilingWriter();
-       BufferedReader reader = new BufferedReader(new FileReader(file));
        String line;
-       
-       while((line = reader.readLine()) != null){
+       BufferedReader br = new BufferedReader(reader);
+       while((line = br.readLine()) != null){
            pw.append(line);
        }
        language = pw.getLanguage().getLanguage(); 
@@ -30,5 +32,11 @@ public class TikaLanguage {
     
     public String getLanguage(){
         return language;
+    }
+
+    private void getText() throws IOException {
+        Reader reader = tika.parse(new FileInputStream(file));
+        parse(reader);
+        
     }
 }

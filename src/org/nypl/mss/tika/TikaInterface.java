@@ -4,12 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.apache.tika.Tika;
 
 public class TikaInterface {
     
     private static ArrayList<File> files;
     private File currentFile;
-
+    private static final Tika tika = new Tika();
     
     TikaInterface(String fileIn) throws IOException{
         files = new ArrayList<File>(Arrays.asList(new File(fileIn).listFiles()));
@@ -31,7 +32,7 @@ public class TikaInterface {
     }
     
     private void getLanguage(File file) throws IOException {
-        TikaLanguage tl = new TikaLanguage(file);
+        TikaLanguage tl = new TikaLanguage(file, tika);
         System.out.println("tikaLanguage: " + tl.getLanguage());
     }
     
